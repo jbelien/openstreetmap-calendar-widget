@@ -5,11 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpenStreetMap Calendar Widget</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <style>
-        body {
-            font-family: "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-        }
-
         .osmcal-events {
             list-style-type: none;
         }
@@ -35,19 +33,58 @@
         .osmcal-event-date {
             font-size: 1rem;
         }
+
+        .custom-list-entry-box {
+            align-items: center;
+            display: flex;
+        }
+
+        .custom-list-entry-box {
+            align-items: center;
+            display: flex;
+        }
+
+        .custom-entry-main {
+            flex-grow: 2;
+            padding-right: 10px;
+        }
+
+        .custom-entry-name {
+            font-size: 18pt;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .custom-entry-location {
+            color: #A4A4A4;
+            font-size: 12pt;
+            margin: 0;
+        }
+
+        .custom-entry-date {
+            text-align: right;
+            white-space: nowrap;
+        }
     </style>
 </head>
 
 <body>
 
-    <h1>Events list (Global)</h1>
-    <div id="osmcal"></div>
+    <div class="container">
 
-    <h1>Events list (In: France)</h1>
-    <div id="osmcal-in" data-in="France"></div>
+        <h1>Events list (Global)</h1>
+        <div id="osmcal"></div>
 
-    <h1>Events list (Limit: 1)</h1>
-    <div id="osmcal-limit" data-limit="1"></div>
+        <h1>Events list (In: France)</h1>
+        <div id="osmcal-in" data-in="France"></div>
+
+        <h1>Events list (Limit: 1)</h1>
+        <div id="osmcal-limit" data-limit="1"></div>
+
+        <h1>Events list (Custom template)</h1>
+        <div id="osmcal-template"></div>
+
+    </div>
 
     <script src="src/index.ts"></script>
     <script>
@@ -62,6 +99,19 @@
 
             osmcal
                 .init(document.getElementById("osmcal-limit"))
+                .fetch();
+
+            osmcal
+                .init(document.getElementById("osmcal-template"))
+                .setTemplate(
+                    '<div class="custom-list-entry-box">' +
+                    '<div class="custom-entry-main">' +
+                    '<p class="custom-entry-name">{{ name }}</p>' +
+                    '<p class="custom-entry-location">{{ location.short }}</p>' +
+                    '</div>' +
+                    '<span class="custom-entry-date">{{ date.human }}</span>' +
+                    '</div>'
+                )
                 .fetch();
         })();
     </script>
