@@ -44,7 +44,7 @@ class Widget {
       return template(event);
     }
 
-    private display (event: Event): void {
+    private display (element: HTMLUListElement, event: Event): void {
       const liElement = document.createElement("li");
       liElement.className = "osmcal-event";
 
@@ -56,7 +56,7 @@ class Widget {
 
       liElement.appendChild(aElement);
 
-      this.element.firstChild.appendChild(liElement);
+      element.appendChild(liElement);
     }
 
     public async fetch (): Promise<Event[]> {
@@ -78,11 +78,11 @@ class Widget {
 
         if (this.limit > 0) {
           events.slice(0, this.limit).forEach((event: Event) => {
-            this.display(event);
+            this.display(ul, event);
           });
         } else {
           events.forEach((event: Event) => {
-            this.display(event);
+            this.display(ul, event);
           });
         }
       }
