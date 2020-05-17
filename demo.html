@@ -40,46 +40,28 @@
 
 <body>
 
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc at elit feugiat, lacinia massa non, sodales lacus.
-        In sit amet lacus nec elit tincidunt tempor. Pellentesque ultricies, risus id aliquet elementum, quam arcu
-        feugiat libero, quis euismod ex orci a massa. Pellentesque consequat eget libero sed blandit. Etiam libero sem,
-        porttitor sed elementum in, suscipit a libero. In gravida gravida risus id scelerisque. Maecenas blandit eget
-        libero at imperdiet. Sed finibus nulla iaculis libero cursus laoreet. Morbi nec sem vel elit eleifend elementum.
-        Etiam suscipit pulvinar gravida. Sed aliquam varius quam, sit amet condimentum dolor porttitor a. In hac
-        habitasse platea dictumst. Integer ornare arcu arcu, at tempus odio dignissim ut. Proin aliquam mollis viverra.
-        Donec egestas mi vitae nulla hendrerit, eget mattis felis tincidunt. Nullam vel semper massa, vitae sollicitudin
-        sapien.
-    </p>
     <h1>Events list (Global)</h1>
-    <div id="osmcal-full"></div>
-    <p>
-        Phasellus pharetra lorem quis lorem efficitur tempus. Nullam molestie ligula vel scelerisque maximus. Curabitur
-        odio ex, pulvinar semper pulvinar eget, laoreet id ligula. Sed porta malesuada porta. Morbi interdum turpis sed
-        enim viverra, vel elementum nisl mattis. Sed tristique augue vitae enim auctor blandit. Nulla lobortis vitae
-        justo non suscipit. Nam tempus egestas dolor, in aliquet ligula tempus vitae. Proin pretium vulputate finibus.
-        Maecenas posuere est tristique, mattis risus vel, varius elit. Cras consectetur fringilla eleifend. Aenean
-        eleifend neque ac nunc tincidunt, at fringilla ligula vulputate.
-    </p>
-    <h1>Events list (France)</h1>
-    <div id="osmcal-fr" data-in="France"></div>
-    <p>
-        Maecenas lobortis ipsum urna, nec commodo orci bibendum a. Nullam lobortis sodales leo, nec rutrum nisi viverra
-        ut. Pellentesque porta nunc eu odio placerat, nec rhoncus mi porta. Donec ultricies nulla ipsum, quis iaculis
-        quam mattis ac. Ut fringilla mattis mauris, at ornare elit sagittis sed. Proin convallis molestie urna, vitae
-        pharetra risus mattis consequat. Duis elementum, mi eu dictum efficitur, magna justo efficitur nulla, eu tempor
-        dui neque in mauris. Proin quis ornare risus.
-    </p>
+    <div id="osmcal"></div>
+
+    <h1>Events list (In: France)</h1>
+    <div id="osmcal-in" data-in="France"></div>
+
+    <h1>Events list (Limit: 1)</h1>
+    <div id="osmcal-limit" data-limit="1"></div>
 
     <script src="src/index.ts"></script>
     <script>
         (function () {
             osmcal
-                .init(document.getElementById("osmcal-full"))
+                .init(document.getElementById("osmcal"))
                 .fetch();
 
             osmcal
-                .init(document.getElementById("osmcal-fr"))
+                .init(document.getElementById("osmcal-in"))
+                .fetch();
+
+            osmcal
+                .init(document.getElementById("osmcal-limit"))
                 .fetch();
         })();
     </script>
