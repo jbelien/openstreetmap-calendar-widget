@@ -8,7 +8,8 @@ import Filter from "./Filter";
 class Widget {
     private url = "https://osmcal.org/api/v1/";
     private element: HTMLElement;
-    private filter: Filter;
+    private filter: Filter = {};
+    private limit = -1;
 
     private template: string =
         "<div class=\"osmcal-event-name\">{{ name }}</div>" +
@@ -18,9 +19,10 @@ class Widget {
       this.element = element;
 
       if (typeof this.element.dataset.in !== "undefined") {
-        this.filter = {
-          in: this.element.dataset.in.toString()
-        };
+        this.filter.in = this.element.dataset.in;
+      }
+      if (typeof this.element.dataset.limit !== "undefined") {
+        this.limit = parseInt(this.element.dataset.limit);
       }
     }
 
@@ -74,9 +76,15 @@ class Widget {
 
         this.element.append(ul);
 
-        events.forEach((event: Event) => {
-          this.display(event);
-        });
+        if (this.limit > 0) {
+          events.slice(0, this.limit).forEach((event: Event) => {
+            this.display(event);
+          });
+        } else {
+          events.forEach((event: Event) => {
+            this.display(event);
+          });
+        }
       }
 
       return events;
