@@ -89,20 +89,20 @@
     <script src="src/index.ts"></script>
     <script>
         (function () {
-            osmcal
-                .init(document.getElementById("osmcal"))
-                .fetch();
+            (new OSMCal.WidgetList(document.getElementById("osmcal")))
+                .display();
 
-            osmcal
-                .init(document.getElementById("osmcal-in"))
-                .fetch();
+            (new OSMCal.WidgetList(document.getElementById("osmcal-in")))
+                .display();
+            // (new OSMCal.WidgetList(document.getElementById("osmcal-in", { filter: { in: "France " } })))
+            //     .display();
 
-            osmcal
-                .init(document.getElementById("osmcal-limit"))
-                .fetch();
+            (new OSMCal.WidgetList(document.getElementById("osmcal-limit")))
+                .display();
+            // (new OSMCal.WidgetList(document.getElementById("osmcal-limit"), { limit: 1 }))
+            //     .display();
 
-            osmcal
-                .init(document.getElementById("osmcal-template"))
+            (new OSMCal.WidgetList(document.getElementById("osmcal-template")))
                 .setTemplate(
                     '<div class="custom-list-entry-box">' +
                     '<div class="custom-entry-main">' +
@@ -112,7 +112,7 @@
                     '<span class="custom-entry-date">{{ date.human }}</span>' +
                     '</div>'
                 )
-                .fetch();
+                .display();
         })();
     </script>
 </body>

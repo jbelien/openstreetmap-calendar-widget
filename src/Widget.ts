@@ -1,94 +1,51 @@
 "use strict";
 
-import Handlebars from "handlebars/dist/handlebars";
-
 import Event from "./Event";
 import Filter from "./Filter";
+import Options from "./Options";
 
-class Widget {
-    private url = "https://osmcal.org/api/v1/";
-    private element: HTMLElement;
-    private filter: Filter = {};
-    private limit = -1;
+abstract class Widget {
+  private url = "https://osmcal.org/api/v1/";
 
-    private template: string =
-        "<div class=\"osmcal-event-name\">{{ name }}</div>" +
-        "<div class=\"osmcal-event-details\">{{ date.human }}{{#if location.short}} in {{ location.short }}{{/if}}</div>";
+  protected filter: Filter = {};
+  protected limit = -1;
 
-    constructor (element: HTMLElement) {
-      this.element = element;
+  protected element: HTMLElement;
 
-      if (typeof this.element.dataset.in !== "undefined") {
-        this.filter.in = this.element.dataset.in;
-      }
-      if (typeof this.element.dataset.limit !== "undefined") {
-        this.limit = parseInt(this.element.dataset.limit);
-      }
+  constructor (options?: Options) {
+    if (typeof options !== "undefined") {
+      this.filter = options.filter;
+      this.limit = options.limit;
+    }
+  }
+
+  protected init (): void {
+    if (typeof this.element.dataset.in !== "undefined") {
+      this.filter.in = this.element.dataset.in;
+    }
+    if (typeof this.element.dataset.limit !== "undefined") {
+      this.limit = parseInt(this.element.dataset.limit);
+    }
+  }
+
+  protected async fetch (): Promise<Event[]> {
+    let url = `${this.url}events/`;
+
+    if (typeof this.filter !== "undefined") {
+      url += `?${new URLSearchParams(Object.entries(this.filter)).toString()}`;
     }
 
-    public setFilter (options: Filter): this {
-      this.filter = options;
+    const response = await fetch(url);
+    const events = (await response.json()) as Event[];
 
-      return this;
+    if (this.limit > 0) {
+      return events.slice(0, this.limit);
     }
 
-    public setTemplate (template: string): this {
-      this.template = template;
+    return events;
+  }
 
-      return this;
-    }
-
-    private render (event: Event): string {
-      const template = Handlebars.compile(this.template);
-
-      return template(event);
-    }
-
-    private display (element: HTMLUListElement, event: Event): void {
-      const liElement = document.createElement("li");
-      liElement.className = "osmcal-event";
-
-      const aElement = document.createElement("a");
-
-      aElement.href = event.url;
-      aElement.target = "_blank";
-      aElement.innerHTML = this.render(event);
-
-      liElement.appendChild(aElement);
-
-      element.appendChild(liElement);
-    }
-
-    public async fetch (): Promise<Event[]> {
-      let url = `${this.url}events/`;
-
-      if (typeof this.filter !== "undefined") {
-        url += `?${new URLSearchParams(Object.entries(this.filter)).toString()}`;
-      }
-
-      const response = await fetch(url);
-      const events = (await response.json()) as Event[];
-
-      if (events.length > 0) {
-        const ul = document.createElement("ul");
-
-        ul.className = "osmcal-events";
-
-        this.element.append(ul);
-
-        if (this.limit > 0) {
-          events.slice(0, this.limit).forEach((event: Event) => {
-            this.display(ul, event);
-          });
-        } else {
-          events.forEach((event: Event) => {
-            this.display(ul, event);
-          });
-        }
-      }
-
-      return events;
-    }
+  abstract display(element: HTMLElement): void;
 }
 
 export { Widget as default };

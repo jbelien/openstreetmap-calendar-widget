@@ -1,9 +1,5 @@
 "use strict";
 
-import Widget from "./Widget";
+import WidgetList from "./Widget/List";
 
-export function init (element: HTMLElement): Widget {
-  const widget = new Widget(element);
-
-  return widget;
-}
+export { WidgetList };

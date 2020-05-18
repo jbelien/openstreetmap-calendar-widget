@@ -2,8 +2,8 @@
   "name": "openstreetmap-calendar-widget",
   "description": "",
   "scripts": {
-    "demo": "parcel demo.html --out-dir demo --global osmcal",
-    "build": "parcel build src/index.ts --out-file osmcal.js --global osmcal",
+    "demo": "parcel demo.html --out-dir demo --global OSMCal",
+    "build": "parcel build src/index.ts --out-file osmcal.js --global OSMCal",
     "test": "eslint src/ --ext .ts",
     "fix": "eslint src/ --ext .ts --fix"
   },
