@@ -30,6 +30,10 @@ class Map extends Widget {
     return this;
   }
 
+  public getMap (): L.Map {
+    return this.map;
+  }
+
   private addLink (): void {
     const link = document.createElement("link");
 
