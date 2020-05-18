@@ -22,6 +22,10 @@ class Map extends Widget {
 
     this.init();
     this.addLink();
+
+    this.map = new L.Map(this.element);
+    this.addBaselayer();
+    this.addLayer();
   }
 
   public setTemplate (template: string): this {
@@ -88,13 +92,6 @@ class Map extends Widget {
 
   public async display (): Promise<Event[]> {
     const events = await this.fetch();
-
-    this.map = new L.Map(this.element, {
-      center: [51.505, -0.09],
-      zoom: 13
-    });
-    this.addBaselayer();
-    this.addLayer();
 
     if (events.length > 0) {
       events.forEach((event: Event) => {
