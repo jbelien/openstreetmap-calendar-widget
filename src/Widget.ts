@@ -9,6 +9,7 @@ abstract class Widget {
 
   protected filter: Filter = {};
   protected limit = -1;
+  protected past = false;
 
   protected element: HTMLElement;
 
@@ -16,6 +17,7 @@ abstract class Widget {
     if (typeof options !== "undefined") {
       this.filter = options.filter;
       this.limit = options.limit;
+      this.past = (options.past === true);
     }
   }
 
@@ -29,7 +31,7 @@ abstract class Widget {
   }
 
   protected async fetch (): Promise<Event[]> {
-    let url = `${this.url}events/`;
+    let url = `${this.url}events/` + (this.past ? "past/" : "");
 
     if (typeof this.filter !== "undefined") {
       url += `?${new URLSearchParams(Object.entries(this.filter)).toString()}`;

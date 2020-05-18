@@ -4,7 +4,8 @@ import Filter from "./Filter";
 
 interface Options {
   filter?: Filter;
-  limit: number;
+  limit?: number;
+  past?: boolean;
 }
 
 export { Options as default };
