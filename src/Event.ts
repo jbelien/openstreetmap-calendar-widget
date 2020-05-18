@@ -1,8 +1,10 @@
 "use strict";
 
 class Event {
+    cancelled?: boolean;
     name: string;
     url: string;
+
     date: {
         human: string;
         whole_day: boolean;
@@ -10,9 +12,11 @@ class Event {
         end?: string;
     };
 
-    location: {
-        short: string|null;
+    location?: {
+        coords: [number, number]|null;
         detailed: string|null;
+        short: string|null;
+        venue?: string;
     }
 }
 
