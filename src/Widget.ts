@@ -45,7 +45,7 @@ abstract class Widget {
     return events;
   }
 
-  abstract display(element: HTMLElement): void;
+  public abstract async display(): Promise<Event[]>;
 }
 
 export { Widget as default };
