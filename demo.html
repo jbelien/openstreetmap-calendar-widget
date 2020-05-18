@@ -144,7 +144,28 @@
 
         </div>
 
-        <h2>Map</h2>
+        <h2 class="mt-3">List: Past</h2>
+
+        <div class="accordion" id="accordion-past">
+
+            <div class="card">
+                <div class="card-header" id="heading5">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                            data-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
+                            Past events list (Global, Limit: 5)
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapse5" class="collapse" aria-labelledby="heading5" data-parent="#accordion-past">
+                    <div class="card-body">
+                        <div id="osmcal-past"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
         <h2 class="mt-3">Map: Future</h2>
 
         <div id="osmcal-map" style="height: 300px;"></div>
@@ -187,6 +208,9 @@
                 '</div>'
             );
             widget4.display();
+
+            const widget5 = new OSMCal.WidgetList(document.getElementById("osmcal-past"), { past: true, limit: 5 });
+            widget5.display();
 
             const widget6 = new OSMCal.WidgetMap(document.getElementById("osmcal-map"));
             widget6.display();
