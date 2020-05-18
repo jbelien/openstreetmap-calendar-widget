@@ -9,6 +9,13 @@
     "fix": "eslint src/ --ext .ts --fix"
   },
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jbelien/openstreetmap-calendar-widget.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jbelien/openstreetmap-calendar-widget/issues"
+  },
   "devDependencies": {
     "@types/leaflet": "^1.5.12",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
