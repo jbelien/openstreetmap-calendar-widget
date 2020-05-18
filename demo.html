@@ -84,6 +84,9 @@
         <h1>Events list (Custom template)</h1>
         <div id="osmcal-template"></div>
 
+        <h1>Events map</h1>
+        <div id="osmcal-map" style="height: 300px;"></div>
+
     </div>
 
     <script src="src/index.ts"></script>
@@ -112,6 +115,9 @@
                     '<span class="custom-entry-date">{{ date.human }}</span>' +
                     '</div>'
                 )
+                .display();
+
+            (new OSMCal.WidgetMap(document.getElementById("osmcal-map")))
                 .display();
         })();
     </script>
