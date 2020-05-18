@@ -1,6 +1,6 @@
 "use strict";
 
-class Event {
+interface Event {
     cancelled?: boolean;
     name: string;
     url: string;
@@ -17,7 +17,7 @@ class Event {
         detailed: string|null;
         short: string|null;
         venue?: string;
-    }
+    };
 }
 
 export { Event as default };
