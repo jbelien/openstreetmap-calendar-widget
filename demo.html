@@ -70,55 +70,128 @@
 
 <body>
 
-    <div class="container">
+    <div class="container" id="accordion">
 
-        <h1>Events list (Global)</h1>
-        <div id="osmcal"></div>
+        <h1>OpenStreetMap Calendar Widget</h1>
 
-        <h1>Events list (In: France)</h1>
-        <div id="osmcal-in" data-in="France"></div>
+        <h2>List</h2>
 
-        <h1>Events list (Limit: 1)</h1>
-        <div id="osmcal-limit" data-limit="1"></div>
+        <div class="accordion">
 
-        <h1>Events list (Custom template)</h1>
-        <div id="osmcal-template"></div>
+            <div class="card">
+                <div class="card-header" id="heading1">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                            data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                            Future events list (Global)
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapse1" class="collapse" aria-labelledby="heading1" data-parent="#accordion">
+                    <div class="card-body">
+                        <div id="osmcal"></div>
+                    </div>
+                </div>
+            </div>
 
-        <h1>Events map</h1>
+            <div class="card">
+                <div class="card-header" id="heading2">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                            data-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
+                            Future events list (In: France)
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordion">
+                    <div class="card-body">
+                        <div id="osmcal-in" data-in="France"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="heading3">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                            data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
+                            Future events list (Limit: 1)
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordion">
+                    <div class="card-body">
+                        <div id="osmcal-limit" data-limit="1"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="heading4">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                            data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+                            Future events list (Custom template)
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordion">
+                    <div class="card-body">
+                        <div id="osmcal-template"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2>Map</h2>
+
         <div id="osmcal-map" style="height: 300px;"></div>
 
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
     <script src="src/index.ts"></script>
     <script>
         (function () {
-            (new OSMCal.WidgetList(document.getElementById("osmcal")))
-                .display();
 
-            (new OSMCal.WidgetList(document.getElementById("osmcal-in")))
-                .display();
+            const widget1 = new OSMCal.WidgetList(document.getElementById("osmcal"));
+            widget1.display();
+
+            const widget2 = new OSMCal.WidgetList(document.getElementById("osmcal-in"));
+            widget2.display();
             // (new OSMCal.WidgetList(document.getElementById("osmcal-in", { filter: { in: "France " } })))
             //     .display();
 
-            (new OSMCal.WidgetList(document.getElementById("osmcal-limit")))
-                .display();
+            const widget3 = new OSMCal.WidgetList(document.getElementById("osmcal-limit"));
+            widget3.display();
             // (new OSMCal.WidgetList(document.getElementById("osmcal-limit"), { limit: 1 }))
             //     .display();
 
-            (new OSMCal.WidgetList(document.getElementById("osmcal-template")))
-                .setTemplate(
-                    '<div class="custom-list-entry-box">' +
-                    '<div class="custom-entry-main">' +
-                    '<p class="custom-entry-name">{{ name }}</p>' +
-                    '<p class="custom-entry-location">{{ location.short }}</p>' +
-                    '</div>' +
-                    '<span class="custom-entry-date">{{ date.human }}</span>' +
-                    '</div>'
+            const widget4 = new OSMCal.WidgetList(document.getElementById("osmcal-template"));
+            widget4.setTemplate(
+                '<div class="custom-list-entry-box">' +
+                '<div class="custom-entry-main">' +
+                '<p class="custom-entry-name">{{ name }}</p>' +
+                '<p class="custom-entry-location">{{ location.short }}</p>' +
+                '</div>' +
+                '<span class="custom-entry-date">{{ date.human }}</span>' +
+                '</div>'
+            );
+            widget4.display();
                 )
                 .display();
+            const widget6 = new OSMCal.WidgetMap(document.getElementById("osmcal-map"));
+            widget6.display();
 
-            (new OSMCal.WidgetMap(document.getElementById("osmcal-map")))
-                .display();
         })();
     </script>
 </body>
