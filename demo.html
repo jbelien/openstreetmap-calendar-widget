@@ -65,6 +65,18 @@
             text-align: right;
             white-space: nowrap;
         }
+
+        #osmcal-calendar td {
+            text-align: center;
+        }
+
+        #osmcal-calendar .today {
+            font-weight: bold;
+        }
+
+        #osmcal-calendar .event {
+            font-style: italic;
+        }
     </style>
 </head>
 
@@ -166,6 +178,10 @@
 
         </div>
 
+        <h2 class="mt-3">Calendar: Future</h2>
+
+        <div id="osmcal-calendar"></div>
+
         <h2 class="mt-3">Map: Future</h2>
 
         <div id="osmcal-map" style="height: 300px;"></div>
@@ -212,8 +228,11 @@
             const widget5 = new OSMCal.WidgetList(document.getElementById("osmcal-past"), { past: true, limit: 5 });
             widget5.display();
 
-            const widget6 = new OSMCal.WidgetMap(document.getElementById("osmcal-map"));
+            const widget6 = new OSMCal.WidgetCalendar(document.getElementById("osmcal-calendar"));
             widget6.display();
+
+            const widget7 = new OSMCal.WidgetMap(document.getElementById("osmcal-map"));
+            widget7.display();
 
         })();
     </script>
