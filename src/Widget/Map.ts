@@ -16,11 +16,8 @@ class Map extends Widget {
     "<div class=\"osmcal-popup-event-details\">{{ date.human }}{{#if location.short}} in {{ location.short }}{{/if}}</div>";
 
   constructor (element: HTMLElement, options?: Options) {
-    super(options);
+    super(element, options);
 
-    this.element = element;
-
-    this.init();
     this.addLink();
 
     this.map = new L.Map(this.element);

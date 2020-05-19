@@ -3,21 +3,12 @@
 import Handlebars from "handlebars/dist/handlebars";
 
 import Event from "../Event";
-import Options from "../Options";
 import Widget from "../Widget";
 
 class List extends Widget {
   private template: string =
     "<div class=\"osmcal-event-name\">{{ name }}</div>" +
     "<div class=\"osmcal-event-details\">{{ date.human }}{{#if location.short}} in {{ location.short }}{{/if}}</div>";
-
-  constructor (element: HTMLElement, options?: Options) {
-    super(options);
-
-    this.element = element;
-
-    this.init();
-  }
 
   public setTemplate (template: string): this {
     this.template = template;

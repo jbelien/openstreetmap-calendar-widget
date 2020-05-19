@@ -13,20 +13,20 @@ abstract class Widget {
 
   protected element: HTMLElement;
 
-  constructor (options?: Options) {
-    if (typeof options !== "undefined") {
-      this.filter = options.filter;
-      this.limit = options.limit;
-      this.past = (options.past === true);
-    }
-  }
+  constructor (element: HTMLElement, options?: Options) {
+    this.element = element;
 
-  protected init (): void {
     if (typeof this.element.dataset.in !== "undefined") {
       this.filter.in = this.element.dataset.in;
     }
     if (typeof this.element.dataset.limit !== "undefined") {
       this.limit = parseInt(this.element.dataset.limit);
+    }
+
+    if (typeof options !== "undefined") {
+      this.filter = options.filter;
+      this.limit = options.limit;
+      this.past = (options.past === true);
     }
   }
 
