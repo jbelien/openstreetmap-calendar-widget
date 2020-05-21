@@ -202,19 +202,19 @@
     <script>
         (function () {
 
-            const widget1 = new OSMCal.WidgetList(document.getElementById("osmcal"));
-            widget1.display();
+            const widgetList1 = new OSMCal.WidgetList(document.getElementById("osmcal"));
+            widgetList1.display();
 
-            const widget2 = new OSMCal.WidgetList(document.getElementById("osmcal-in"));
-            // const widget2 = new OSMCal.WidgetList(document.getElementById("osmcal-in", { filter: { in: "France " } }));
-            widget2.display();
+            const widgetList2 = new OSMCal.WidgetList(document.getElementById("osmcal-in"));
+            // const widgetList2 = new OSMCal.WidgetList(document.getElementById("osmcal-in", { filter: { in: "France " } }));
+            widgetList2.display();
 
-            const widget3 = new OSMCal.WidgetList(document.getElementById("osmcal-limit"));
-            // const widget3 = new OSMCal.WidgetList(document.getElementById("osmcal-limit"), { limit: 1 });
-            widget3.display();
+            const widgetList3 = new OSMCal.WidgetList(document.getElementById("osmcal-limit"));
+            // const widgetList3 = new OSMCal.WidgetList(document.getElementById("osmcal-limit"), { limit: 1 });
+            widgetList3.display();
 
-            const widget4 = new OSMCal.WidgetList(document.getElementById("osmcal-template"));
-            widget4.setTemplate(
+            const widgetList4 = new OSMCal.WidgetList(document.getElementById("osmcal-template"));
+            widgetList4.setTemplate(
                 '<div class="custom-list-entry-box">' +
                 '<div class="custom-entry-main">' +
                 '<p class="custom-entry-name">{{ name }}</p>' +
@@ -223,16 +223,19 @@
                 '<span class="custom-entry-date">{{ date.human }}</span>' +
                 '</div>'
             );
-            widget4.display();
+            widgetList4.display();
 
-            const widget5 = new OSMCal.WidgetList(document.getElementById("osmcal-past"), { past: true, limit: 5 });
-            widget5.display();
+            const widgetList5 = new OSMCal.WidgetList(document.getElementById("osmcal-past"), { past: true, limit: 5 });
+            widgetList5.display();
+
+            const widgetCalendar1 = new OSMCal.WidgetCalendar(document.getElementById("osmcal-calendar"));
+            widgetCalendar1.display();
 
             const widget6 = new OSMCal.WidgetCalendar(document.getElementById("osmcal-calendar"));
             widget6.display();
 
-            const widget7 = new OSMCal.WidgetMap(document.getElementById("osmcal-map"));
-            widget7.display();
+            const widgetMap1 = new OSMCal.WidgetMap(document.getElementById("osmcal-map"));
+            widgetMap1.display();
 
         })();
     </script>
