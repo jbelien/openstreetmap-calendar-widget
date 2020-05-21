@@ -66,6 +66,37 @@ const widget = new OSMCal.WidgetList(document.getElementById("osmcal"), {
 widget.display();
 ```
 
+## Events cakendar
+
+```js
+const widget = new OSMCal.WidgetCalendar(document.getElementById("osmcal"));
+widget.display();
+```
+
+All parameters described for WidgetList are also available for WidgetCalendar (filter, limit, past, ...).
+
+### Position
+
+**Using `data-position` attribute:**
+
+```html
+<div id="osmcal" data-position="bottom"></div>
+```
+
+```js
+const widget = new OSMCal.WidgetList(document.getElementById("osmcal"));
+widget.display();
+```
+
+**Using JavaScript:**
+
+```js
+const widget = new OSMCal.WidgetList(document.getElementById("osmcal"), {
+  position: "bottom",
+});
+widget.display();
+```
+
 ## Events map
 
 ```js
