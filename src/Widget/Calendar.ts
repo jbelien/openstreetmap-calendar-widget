@@ -32,16 +32,18 @@ class Calendar extends Widget {
     return template(event);
   }
 
-  constructor (element: HTMLElement, options?: OptionsCalendar, locales?: string|string[]) {
+  constructor (element: HTMLElement, options?: OptionsCalendar) {
     super(element, options);
 
-    this.locales = locales;
-
+    if (typeof this.element.dataset.locales !== "undefined") {
+      this.locales = this.element.dataset.locales;
+    }
     if (typeof this.element.dataset.position !== "undefined") {
       this.position = this.element.dataset.position as Position;
     }
 
     if (typeof options !== "undefined") {
+      this.locales = options.locales;
       this.position = options.position;
     }
 
