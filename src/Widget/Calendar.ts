@@ -1,16 +1,35 @@
 "use strict";
 
+import Handlebars from "handlebars/dist/handlebars";
+
 import Event from "../Event";
 import Options from "../Options";
 import Widget from "../Widget";
 
 class Calendar extends Widget {
   private table: HTMLTableElement;
+  private list: HTMLUListElement;
 
   private locales: string|string[];
 
   private year: number;
   private month: number;
+
+  private template: string =
+    "<div class=\"osmcal-event-name\">{{ name }}</div>" +
+    "<div class=\"osmcal-event-details\">{{ date.human }}{{#if location.short}} in {{ location.short }}{{/if}}</div>";
+
+  public setTemplate (template: string): this {
+    this.template = template;
+
+    return this;
+  }
+
+  private render (event: Event): string {
+    const template = Handlebars.compile(this.template);
+
+    return template(event);
+  }
 
   constructor (element: HTMLElement, options?: Options, locales?: string|string[]) {
     super(element, options);
@@ -20,9 +39,15 @@ class Calendar extends Widget {
     this.year = new Date().getFullYear();
     this.month = new Date().getMonth();
 
-    this.table = this.createTable(this.month, this.year);
+    const div = document.createElement("div");
 
-    this.element.append(this.table);
+    this.table = this.createTable(this.month, this.year);
+    this.list = this.createList();
+
+    div.append(this.table);
+    div.append(this.list);
+
+    this.element.append(div);
   }
 
   private static daysInMonth (month: number, year: number): number {
@@ -78,33 +103,85 @@ class Calendar extends Widget {
     return table;
   }
 
+  private createList (): HTMLUListElement {
+    const ul = document.createElement("ul");
+
+    ul.className = "osmcal-events";
+
+    return ul;
+  }
+
   public async display (): Promise<Event[]> {
     const events = await this.fetch();
 
     if (events.length > 0) {
+      const group: Record<string, Event[]> = {};
+
       events.forEach((event: Event) => {
         const start = new Date(event.date.start);
 
-        const year = start.getFullYear();
-        const month = start.getMonth();
-        const date = start.getDate();
+        const startString = start.toISOString();
+
+        if (typeof group[startString] === "undefined") {
+          group[startString] = [];
+        }
+
+        group[startString].push(event);
+      });
+
+      Object.keys(group).forEach((dateString: string) => {
+        const _date = new Date(dateString);
+
+        const year = _date.getFullYear();
+        const month = _date.getMonth();
+        const date = _date.getDate();
+
+        const events = group[dateString];
 
         if (month === this.month && year === this.year) {
           const td = this.table.querySelector(`td[data-year="${year}"][data-month="${month + 1}"][data-date="${date}"]`) as HTMLTableCellElement;
 
           td.classList.add("event");
+          td.title = events.length.toString();
 
-          td.title = event.name;
-          if (typeof event.location !== "undefined") {
-            td.title += ` in ${event.location.short}`;
-          }
+          const a = document.createElement("a");
 
-          td.innerHTML = `<a target="_blank" href="${event.url}">${td.innerText}</a>`;
+          a.href = "#";
+          a.innerText = td.innerText;
+
+          a.addEventListener("click", (event) => {
+            event.preventDefault();
+
+            this.displayList(events);
+          });
+
+          td.innerHTML = "";
+          td.append(a);
         }
       });
     }
 
     return events;
+  }
+
+  private displayList (events: Event[]): void {
+    this.list.innerHTML = "";
+
+    events.forEach((event: Event) => {
+      const li = document.createElement("li");
+
+      li.className = "osmcal-event";
+
+      const a = document.createElement("a");
+
+      a.href = event.url;
+      a.target = "_blank";
+      a.innerHTML = this.render(event);
+
+      li.append(a);
+
+      this.list.append(li);
+    });
   }
 }
 
