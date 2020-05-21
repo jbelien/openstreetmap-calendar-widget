@@ -3,7 +3,7 @@
 import Handlebars from "handlebars/dist/handlebars";
 
 import Event from "../Event";
-import OptionsCalendar from "./Options/Calendar";
+import OptionsCalendar, { Position } from "./Options/Calendar";
 import Widget from "../Widget";
 
 class Calendar extends Widget {
@@ -11,6 +11,7 @@ class Calendar extends Widget {
   private list: HTMLUListElement;
 
   private locales: string|string[];
+  private position: Position;
 
   private year: number;
   private month: number;
@@ -36,6 +37,14 @@ class Calendar extends Widget {
 
     this.locales = locales;
 
+    if (typeof this.element.dataset.position !== "undefined") {
+      this.position = this.element.dataset.position as Position;
+    }
+
+    if (typeof options !== "undefined") {
+      this.position = options.position;
+    }
+
     this.year = new Date().getFullYear();
     this.month = new Date().getMonth();
 
@@ -43,21 +52,20 @@ class Calendar extends Widget {
 
     div.style.display = "flex";
 
-    if (typeof options !== "undefined" && typeof options.position !== "undefined") {
-      switch (options.position) {
-        case "bottom":
-          div.style.flexDirection = "column";
-          break;
-        case "left":
-          div.style.flexDirection = "row-reverse";
-          break;
-        case "right":
-          div.style.flexDirection = "row";
-          break;
-        case "top":
-          div.style.flexDirection = "column-reverse";
-          break;
-      }
+    switch (this.position) {
+      case "bottom":
+        div.style.flexDirection = "column";
+        break;
+      case "left":
+        div.style.flexDirection = "row-reverse";
+        break;
+      case "right":
+      default:
+        div.style.flexDirection = "row";
+        break;
+      case "top":
+        div.style.flexDirection = "column-reverse";
+        break;
     }
 
     this.table = this.createTable(this.month, this.year);

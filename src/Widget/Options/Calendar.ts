@@ -2,7 +2,7 @@
 
 import Options from "../../Options";
 
-type Position = "bottom" | "left" | "right" | "top";
+export type Position = "bottom" | "left" | "right" | "top";
 
 interface OptionsCalendar extends Options {
     position: Position;
