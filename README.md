@@ -66,7 +66,7 @@ const widget = new OSMCal.WidgetList(document.getElementById("osmcal"), {
 widget.display();
 ```
 
-## Events cakendar
+## Events calendar
 
 ```js
 const widget = new OSMCal.WidgetCalendar(document.getElementById("osmcal"));
