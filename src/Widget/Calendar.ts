@@ -3,7 +3,7 @@
 import Handlebars from "handlebars/dist/handlebars";
 
 import Event from "../Event";
-import Options from "../Options";
+import OptionsCalendar from "./Options/Calendar";
 import Widget from "../Widget";
 
 class Calendar extends Widget {
@@ -31,7 +31,7 @@ class Calendar extends Widget {
     return template(event);
   }
 
-  constructor (element: HTMLElement, options?: Options, locales?: string|string[]) {
+  constructor (element: HTMLElement, options?: OptionsCalendar, locales?: string|string[]) {
     super(element, options);
 
     this.locales = locales;
@@ -40,6 +40,25 @@ class Calendar extends Widget {
     this.month = new Date().getMonth();
 
     const div = document.createElement("div");
+
+    div.style.display = "flex";
+
+    if (typeof options !== "undefined" && typeof options.position !== "undefined") {
+      switch (options.position) {
+        case "bottom":
+          div.style.flexDirection = "column";
+          break;
+        case "left":
+          div.style.flexDirection = "row-reverse";
+          break;
+        case "right":
+          div.style.flexDirection = "row";
+          break;
+        case "top":
+          div.style.flexDirection = "column-reverse";
+          break;
+      }
+    }
 
     this.table = this.createTable(this.month, this.year);
     this.list = this.createList();
