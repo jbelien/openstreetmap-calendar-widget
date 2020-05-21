@@ -187,7 +187,7 @@
 
         <h2 class="mt-3">Calendar: Future (Position: bottom)</h2>
 
-        <div id="osmcal-calendar-bottom"></div>
+        <div id="osmcal-calendar-bottom" data-position="bottom"></div>
 
         <h2 class="mt-3">Map: Future</h2>
 
@@ -238,7 +238,8 @@
             const widgetCalendar1 = new OSMCal.WidgetCalendar(document.getElementById("osmcal-calendar"));
             widgetCalendar1.display();
 
-            const widgetCalendar2 = new OSMCal.WidgetCalendar(document.getElementById("osmcal-calendar-bottom"), { position: "bottom" });
+            const widgetCalendar2 = new OSMCal.WidgetCalendar(document.getElementById("osmcal-calendar-bottom"));
+            // const widgetCalendar2 = new OSMCal.WidgetCalendar(document.getElementById("osmcal-calendar-bottom"), { position: "bottom" });
             widgetCalendar2.display();
 
             const widgetMap1 = new OSMCal.WidgetMap(document.getElementById("osmcal-map"));
