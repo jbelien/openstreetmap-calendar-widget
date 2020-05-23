@@ -22,6 +22,8 @@ export default function (month: number, year: number): HTMLTableSectionElement {
 
       const td = document.createElement("td");
 
+      td.className = "osmcal-calendar__date";
+
       if (i > 0 || j >= firstDay) {
         if (date === now.getDate() && year === now.getFullYear() && month === now.getMonth()) {
           td.classList.add("osmcal-calendar__date--today");

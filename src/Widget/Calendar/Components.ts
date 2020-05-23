@@ -39,6 +39,7 @@ abstract class Components {
     const table = document.createElement("table");
 
     table.className = "osmcal-calendar__table";
+    table.style.width = "100%";
 
     return table;
   }
