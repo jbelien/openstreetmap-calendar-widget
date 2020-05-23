@@ -33,7 +33,9 @@ const widget = new OSMCal.WidgetList(document.getElementById("osmcal"), {
 widget.display();
 ```
 
-### Limit
+### Options
+
+#### Limit
 
 **Using `data-limit` attribute:**
 
@@ -55,7 +57,7 @@ const widget = new OSMCal.WidgetList(document.getElementById("osmcal"), {
 widget.display();
 ```
 
-### Past events
+#### Past events
 
 By default, only future events are displayed. If you want to display past events, here is how to do it.
 
@@ -66,6 +68,17 @@ const widget = new OSMCal.WidgetList(document.getElementById("osmcal"), {
 widget.display();
 ```
 
+### Classes
+
+Following classes are available for customization:
+
+| Class                          | Element | Description                                    |
+| ------------------------------ | ------- | ---------------------------------------------- |
+| `.osmcal-list__list`           | `ul`    | List of events                                 |
+| `.osmcal-list__event`          | `li`    | Event list item (containing the template)      |
+| `.osmcal-list__event__name`    | `div`   | Event name (default template)                  |
+| `.osmcal-list__event__details` | `div`   | Event datetime and location (default template) |
+
 ## Events calendar
 
 ```js
@@ -75,7 +88,9 @@ widget.display();
 
 All parameters described for WidgetList are also available for WidgetCalendar (filter, limit, past, ...).
 
-### Position
+### Options
+
+#### Position
 
 **Using `data-position` attribute:**
 
@@ -97,6 +112,24 @@ const widget = new OSMCal.WidgetList(document.getElementById("osmcal"), {
 widget.display();
 ```
 
+### Classes
+
+Following classes are available for customization:
+
+| Class                               | Element | Description                                    |
+| ----------------------------------- | ------- | ---------------------------------------------- |
+| `.osmcal-calendar__btn-previous`    | `div`   | Button to switch to previous month             |
+| `.osmcal-calendar__btn-next`        | `div`   | Button to switch to next month                 |
+| `.osmcal-calendar__month`           | `div`   | Element containing month and year              |
+| `.osmcal-calendar__table`           | `tbody` | Element containing dates                       |
+| `.osmcal-calendar__date`            | `td`    | Table cell containing date                     |
+| `.osmcal-calendar__date--today`     | `td`    | Table cell containing today's date             |
+| `.osmcal-calendar__date--has-event` | `td`    | Table cell containing date with event(s)       |
+| `.osmcal-calendar__list`            | `ul`    | List of events                                 |
+| `.osmcal-calendar__event`           | `li`    | Event list item (containing the template)      |
+| `.osmcal-calendar__event__name`     | `div`   | Event name (default template)                  |
+| `.osmcal-calendar__event__details`  | `div`   | Event datetime and location (default template) |
+
 ## Events map
 
 ```js
@@ -105,3 +138,13 @@ widget.display();
 ```
 
 All parameters described for WidgetList are also available for WidgetMap (filter, limit, past, ...).
+
+### Classes
+
+Following classes are available for customization:
+
+| Class                         | Element | Description                                    |
+| ----------------------------- | ------- | ---------------------------------------------- |
+| `.osmcal-map__event`          | `div`   | Event item (containing the template)           |
+| `.osmcal-map__event__name`    | `div`   | Event name (default template)                  |
+| `.osmcal-map__event__details` | `div`   | Event datetime and location (default template) |
