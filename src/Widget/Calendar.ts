@@ -16,6 +16,8 @@ class Calendar extends Widget {
   private year: number;
   private month: number;
 
+  private events: Event[] = [];
+
   private template: string =
     "<div class=\"osmcal-event-name\">{{ name }}</div>" +
     "<div class=\"osmcal-event-details\">{{ date.human }}{{#if location.short}} in {{ location.short }}{{/if}}</div>";
@@ -102,7 +104,6 @@ class Calendar extends Widget {
       }
 
       this.update();
-      this.display();
     });
 
     const divNext = this.element.querySelector(".osmcal-calendar-btn-next") as HTMLDivElement;
@@ -115,74 +116,82 @@ class Calendar extends Widget {
       }
 
       this.update();
-      this.display();
     });
 
     this.update();
   }
 
   private update (): void {
+    const list = this.element.querySelector(".osmcal-calendar-events") as HTMLUListElement;
+
+    list.innerHTML = "";
+
     this.displayMonth();
     this.displayDates();
+    this.updateTableWithEvents();
   }
 
   public async display (): Promise<Event[]> {
-    const table = this.element.querySelector(".osmcal-calendar-dates") as HTMLTableElement;
+    this.events = await this.fetch();
 
-    const events = await this.fetch();
-
-    if (events.length > 0) {
-      const group: Record<string, Event[]> = {};
-
-      events.forEach((event: Event) => {
-        const start = new Date(event.date.start);
-
-        const startString = start.toISOString();
-
-        if (typeof group[startString] === "undefined") {
-          group[startString] = [];
-        }
-
-        group[startString].push(event);
-      });
-
-      Object.keys(group).forEach((dateString: string) => {
-        const _date = new Date(dateString);
-
-        const year = _date.getFullYear();
-        const month = _date.getMonth();
-        const date = _date.getDate();
-
-        const events = group[dateString];
-
-        if (month === this.month && year === this.year) {
-          const td = table.querySelector(`td[data-year="${year}"][data-month="${month + 1}"][data-date="${date}"]`) as HTMLTableCellElement;
-
-          td.classList.add("event");
-          td.title = events.length.toString();
-
-          const a = document.createElement("a");
-
-          a.href = "#";
-          a.innerText = td.innerText;
-
-          a.addEventListener("click", (event) => {
-            event.preventDefault();
-
-            this.displayList(events);
-          });
-
-          td.innerHTML = "";
-          td.append(a);
-        }
-      });
+    if (this.events.length > 0) {
+      this.updateTableWithEvents();
     }
 
-    return events;
+    return this.events;
   }
 
-  private displayList (events: Event[]): void {
-    const list = this.element.querySelector(".osmcal-calendar-events") as HTMLTableElement;
+  private updateTableWithEvents (): void {
+    const table = this.element.querySelector(".osmcal-calendar-dates") as HTMLTableElement;
+
+    const group: Record<string, Event[]> = {};
+
+    this.events.forEach((event: Event) => {
+      const start = new Date(event.date.start);
+
+      const startString = start.toISOString();
+
+      if (typeof group[startString] === "undefined") {
+        group[startString] = [];
+      }
+
+      group[startString].push(event);
+    });
+
+    Object.keys(group).forEach((dateString: string) => {
+      const _date = new Date(dateString);
+
+      const year = _date.getFullYear();
+      const month = _date.getMonth();
+      const date = _date.getDate();
+
+      const events = group[dateString];
+
+      if (month === this.month && year === this.year) {
+        const td = table.querySelector(`td[data-year="${year}"][data-month="${month + 1}"][data-date="${date}"]`) as HTMLTableCellElement;
+
+        td.classList.add("event");
+        td.title = events.length.toString();
+
+        const a = document.createElement("a");
+
+        a.href = "#";
+        a.innerText = td.innerText;
+
+        a.addEventListener("click", (event) => {
+          event.preventDefault();
+
+          this.displayEventsList(events);
+        });
+
+        td.innerHTML = "";
+        td.append(a);
+      }
+    });
+  }
+
+  private displayEventsList (events: Event[]): void {
+    const list = this.element.querySelector(".osmcal-calendar-events") as HTMLUListElement;
 
     list.innerHTML = "";
 
