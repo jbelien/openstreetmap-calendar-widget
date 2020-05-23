@@ -8,36 +8,50 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <style>
-        .osmcal-events {
+        .osmcal-list__list,
+        .osmcal-calendar__list {
             list-style-type: none;
             padding: 0;
         }
 
-        .osmcal-event {
+        .osmcal-list__event,
+        .osmcal-calendar__event {
             margin-bottom: 10px;
         }
 
-        .osmcal-event>a {
-            color: inherit;
+        .osmcal-list__event>a,
+        .osmcal-calendar__event>a,
+        .osmcal-map__event>a {
+            color: #333 !important;
             text-decoration: none;
         }
 
-        .osmcal-event>a:hover {
-            color: gray;
+        .osmcal-list__event>a:hover,
+        .osmcal-calendar__event>a:hover,
+        .osmcal-map__event>a:hover {
+            color: gray !important;
         }
 
-        .osmcal-event-name {
+        .osmcal-list__event__name,
+        .osmcal-calendar__event__name,
+        .osmcal-map__event__name {
             font-weight: bold;
-            font-size: 1.2rem;
         }
 
-        .osmcal-event-date {
-            font-size: 1rem;
+        #osmcal-calendar .osmcal-calendar__list {
+            padding-left: 15px;
         }
 
-        .custom-list-entry-box {
-            align-items: center;
-            display: flex;
+        .osmcal-calendar__date {
+            text-align: center;
+        }
+
+        .osmcal-calendar__date--today {
+            font-weight: bold;
+        }
+
+        .osmcal-calendar__date--has-event {
+            font-style: italic;
         }
 
         .custom-list-entry-box {
@@ -65,25 +79,6 @@
         .custom-entry-date {
             text-align: right;
             white-space: nowrap;
-        }
-
-        #osmcal-calendar .osmcal-events {
-            padding-left: 15px;
-        }
-
-        #osmcal-calendar td,
-        #osmcal-calendar-bottom td {
-            text-align: center;
-        }
-
-        #osmcal-calendar .today,
-        #osmcal-calendar-bottom .today {
-            font-weight: bold;
-        }
-
-        #osmcal-calendar .event,
-        #osmcal-calendar-bottom .event {
-            font-style: italic;
         }
     </style>
 </head>
