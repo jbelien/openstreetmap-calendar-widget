@@ -3,13 +3,13 @@
 import Handlebars from "handlebars/dist/handlebars";
 
 import Event from "../Event";
+import Components from "./Calendar/Components";
 import OptionsCalendar, { Position } from "./Options/Calendar";
 import Widget from "../Widget";
 
-class Calendar extends Widget {
-  private table: HTMLTableElement;
-  private list: HTMLUListElement;
+import createTablesDates from "./Calendar/dates";
 
+class Calendar extends Widget {
   private locales: string|string[];
   private position: Position;
 
@@ -32,24 +32,7 @@ class Calendar extends Widget {
     return template(event);
   }
 
-  constructor (element: HTMLElement, options?: OptionsCalendar) {
-    super(element, options);
-
-    if (typeof this.element.dataset.locales !== "undefined") {
-      this.locales = this.element.dataset.locales;
-    }
-    if (typeof this.element.dataset.position !== "undefined") {
-      this.position = this.element.dataset.position as Position;
-    }
-
-    if (typeof options !== "undefined") {
-      this.locales = options.locales;
-      this.position = options.position;
-    }
-
-    this.year = new Date().getFullYear();
-    this.month = new Date().getMonth();
-
+  private createElement (): HTMLDivElement {
     const div = document.createElement("div");
 
     div.style.display = "flex";
@@ -70,77 +53,82 @@ class Calendar extends Widget {
         break;
     }
 
-    this.table = this.createTable(this.month, this.year);
-    this.list = this.createList();
+    div.append(Components.createDivTable());
+    div.append(Components.createDivList());
 
-    div.append(this.table);
-    div.append(this.list);
-
-    this.element.append(div);
+    return div;
   }
 
-  private static daysInMonth (month: number, year: number): number {
-    return 32 - new Date(year, month, 32).getDate();
+  private displayMonth (): void {
+    const element = this.element.querySelector(".osmcal-calendar-month") as HTMLDivElement;
+
+    element.innerText = new Date(this.year, this.month).toLocaleDateString(this.locales, { month: "long", year: "numeric" });
   }
 
-  private createTable (month: number, year: number): HTMLTableElement {
-    const table = document.createElement("table");
+  private displayDates (): void {
+    const element = this.element.querySelector(".osmcal-calendar-dates") as HTMLTableElement;
 
-    const caption = document.createElement("caption");
+    element.innerHTML = "";
+    element.append(createTablesDates(this.month, this.year));
+  }
 
-    caption.innerText = new Date(year, month).toLocaleDateString(this.locales, { month: "long", year: "numeric" });
+  constructor (element: HTMLElement, options?: OptionsCalendar) {
+    super(element, options);
 
-    table.append(caption);
-
-    const tbody = document.createElement("tbody");
-
-    const now = new Date();
-    const firstDay = (((new Date(year, month)).getDay() - 1) + 7) % 7;
-
-    let date = 1;
-
-    for (let i = 0; i < 6; i++) {
-      const tr = document.createElement("tr");
-
-      for (let j = 0; j < 7; j++) {
-        if (date > Calendar.daysInMonth(month, year)) {
-          break;
-        }
-
-        const td = document.createElement("td");
-
-        if (i > 0 || j >= firstDay) {
-          if (date === now.getDate() && year === now.getFullYear() && month === now.getMonth()) {
-            td.classList.add("today");
-          }
-
-          td.dataset.year = year.toString();
-          td.dataset.month = (month + 1).toString();
-          td.dataset.date = date.toString();
-
-          td.innerText = (date++).toString();
-        }
-
-        tr.append(td);
-      }
-
-      tbody.append(tr);
+    if (typeof this.element.dataset.locales !== "undefined") {
+      this.locales = this.element.dataset.locales;
+    }
+    if (typeof this.element.dataset.position !== "undefined") {
+      this.position = this.element.dataset.position as Position;
     }
 
-    table.append(tbody);
+    if (typeof options !== "undefined") {
+      this.locales = options.locales;
+      this.position = options.position;
+    }
 
-    return table;
+    this.year = new Date().getFullYear();
+    this.month = new Date().getMonth();
+
+    this.element.append(this.createElement());
+
+    const divPrevious = this.element.querySelector(".osmcal-calendar-btn-previous") as HTMLDivElement;
+    divPrevious.addEventListener("click", () => {
+      this.month--;
+
+      if (this.month < 0) {
+        this.month = 12;
+        this.year--;
+      }
+
+      this.update();
+      this.display();
+    });
+
+    const divNext = this.element.querySelector(".osmcal-calendar-btn-next") as HTMLDivElement;
+    divNext.addEventListener("click", () => {
+      this.month++;
+
+      if (this.month > 11) {
+        this.month = 0;
+        this.year++;
+      }
+
+      this.update();
+      this.display();
+    });
+
+    this.update();
   }
 
-  private createList (): HTMLUListElement {
-    const ul = document.createElement("ul");
-
-    ul.className = "osmcal-events";
-
-    return ul;
+  private update (): void {
+    this.displayMonth();
+    this.displayDates();
   }
 
   public async display (): Promise<Event[]> {
+    const table = this.element.querySelector(".osmcal-calendar-dates") as HTMLTableElement;
+
     const events = await this.fetch();
 
     if (events.length > 0) {
@@ -168,7 +156,7 @@ class Calendar extends Widget {
         const events = group[dateString];
 
         if (month === this.month && year === this.year) {
-          const td = this.table.querySelector(`td[data-year="${year}"][data-month="${month + 1}"][data-date="${date}"]`) as HTMLTableCellElement;
+          const td = table.querySelector(`td[data-year="${year}"][data-month="${month + 1}"][data-date="${date}"]`) as HTMLTableCellElement;
 
           td.classList.add("event");
           td.title = events.length.toString();
@@ -194,12 +182,14 @@ class Calendar extends Widget {
   }
 
   private displayList (events: Event[]): void {
-    this.list.innerHTML = "";
+    const list = this.element.querySelector(".osmcal-calendar-events") as HTMLTableElement;
+
+    list.innerHTML = "";
 
     events.forEach((event: Event) => {
       const li = document.createElement("li");
 
-      li.className = "osmcal-event";
+      li.className = "osmcal-calendar-event";
 
       const a = document.createElement("a");
 
@@ -209,7 +199,7 @@ class Calendar extends Widget {
 
       li.append(a);
 
-      this.list.append(li);
+      list.append(li);
     });
   }
 }
