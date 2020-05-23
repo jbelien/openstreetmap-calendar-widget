@@ -24,7 +24,7 @@ export default function (month: number, year: number): HTMLTableSectionElement {
 
       if (i > 0 || j >= firstDay) {
         if (date === now.getDate() && year === now.getFullYear() && month === now.getMonth()) {
-          td.classList.add("today");
+          td.classList.add("osmcal-calendar__date--today");
         }
 
         td.dataset.year = year.toString();

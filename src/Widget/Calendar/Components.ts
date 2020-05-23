@@ -10,7 +10,7 @@ abstract class Components {
 
     const divPrevious = document.createElement("div");
 
-    divPrevious.className = "osmcal-calendar-btn-previous";
+    divPrevious.className = "osmcal-calendar__btn-previous";
     divPrevious.style.cursor = "pointer";
     divPrevious.style.textAlign = "center";
     divPrevious.innerHTML = "&lt;";
@@ -19,13 +19,13 @@ abstract class Components {
 
     const divMonth = document.createElement("div");
 
-    divMonth.className = "osmcal-calendar-month";
+    divMonth.className = "osmcal-calendar__month";
 
     div.append(divMonth);
 
     const divNext = document.createElement("div");
 
-    divNext.className = "osmcal-calendar-btn-next";
+    divNext.className = "osmcal-calendar__btn-next";
     divNext.style.cursor = "pointer";
     divNext.style.textAlign = "center";
     divNext.innerHTML = "&gt;";
@@ -38,7 +38,7 @@ abstract class Components {
   private static createTable (): HTMLTableElement {
     const table = document.createElement("table");
 
-    table.className = "osmcal-calendar-dates";
+    table.className = "osmcal-calendar__table";
 
     return table;
   }
@@ -60,7 +60,7 @@ abstract class Components {
 
     const ul = document.createElement("ul");
 
-    ul.className = "osmcal-calendar-events";
+    ul.className = "osmcal-calendar__list";
 
     div.append(ul);
 

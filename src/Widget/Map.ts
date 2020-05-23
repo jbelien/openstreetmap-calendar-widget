@@ -12,8 +12,8 @@ class Map extends Widget {
   private layer: L.FeatureGroup;
 
   private template: string =
-    "<div class=\"osmcal-popup-event-name\">{{ name }}</div>" +
-    "<div class=\"osmcal-popup-event-details\">{{ date.human }}{{#if location.short}} in {{ location.short }}{{/if}}</div>";
+    "<div class=\"osmcal-map__event__name\">{{ name }}</div>" +
+    "<div class=\"osmcal-map__event__details\">{{ date.human }}{{#if location.short}} in {{ location.short }}{{/if}}</div>";
 
   constructor (element: HTMLElement, options?: Options) {
     super(element, options);
@@ -76,13 +76,19 @@ class Map extends Widget {
       )
     );
 
+    const divElement = document.createElement("div");
+
+    divElement.className = "osmcal-map__event";
+
     const aElement = document.createElement("a");
 
     aElement.href = event.url;
     aElement.target = "_blank";
     aElement.innerHTML = this.render(event);
 
-    marker.bindPopup(aElement);
+    divElement.append(aElement);
+
+    marker.bindPopup(divElement);
 
     this.layer.addLayer(marker);
   }
