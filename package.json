@@ -12,7 +12,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jbelien/openstreetmap-calendar-widget.git"
+    "url": "git+https://github.com/jbelien/openstreetmap-calendar-widget.git"
   },
   "bugs": {
     "url": "https://github.com/jbelien/openstreetmap-calendar-widget/issues"
@@ -33,5 +33,7 @@
   "dependencies": {
     "handlebars": "^4.7.6",
     "leaflet": "^1.6.0"
-  }
+  },
+  "homepage": "https://osmcal-widget.netlify.app/demo.html",
+  "main": "src/index.js"
 }
