@@ -67,6 +67,10 @@ class Map extends Widget {
 
     divElement.className = "osmcal-map__event";
 
+    if (event.cancelled === true) {
+      divElement.classList.add("osmcal-map__event--cancelled");
+    }
+
     const aElement = document.createElement("a");
 
     aElement.href = event.url;

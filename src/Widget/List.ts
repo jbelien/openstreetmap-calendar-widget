@@ -23,6 +23,10 @@ class List extends Widget {
 
         liElement.className = "osmcal-list__event";
 
+        if (event.cancelled === true) {
+          liElement.classList.add("osmcal-list__event--cancelled");
+        }
+
         const aElement = document.createElement("a");
 
         aElement.href = event.url;

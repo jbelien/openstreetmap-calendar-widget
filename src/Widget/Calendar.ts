@@ -212,6 +212,10 @@ class Calendar extends Widget {
 
       li.className = "osmcal-calendar__event";
 
+      if (event.cancelled === true) {
+        li.classList.add("osmcal-calendar__event--cancelled");
+      }
+
       const a = document.createElement("a");
 
       a.href = event.url;
