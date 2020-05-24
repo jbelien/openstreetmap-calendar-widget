@@ -2,12 +2,14 @@
 
 import Handlebars from "handlebars/dist/handlebars";
 
+import BtnNext from "./Calendar/components/BtnNext";
+import BtnPrevious from "./Calendar/components/BtnPrevious";
+import List from "./Calendar/components/List";
+import Month from "./Calendar/components/Month";
+import Table from "./Calendar/components/Table";
 import Event from "../Event";
-import Components from "./Calendar/Components";
 import OptionsCalendar, { Position } from "./Options/Calendar";
 import Widget from "../Widget";
-
-import createTablesDates from "./Calendar/dates";
 
 class Calendar extends Widget {
   private locales: string|string[];
@@ -17,6 +19,14 @@ class Calendar extends Widget {
   private month: number;
 
   private events: Event[] = [];
+
+  private components: {
+    btnNext: BtnNext;
+    btnPrevious: BtnPrevious;
+    list: List;
+    month: Month;
+    table: Table;
+  };
 
   private template: string =
     "<div class=\"osmcal-calendar__event__name\">{{ name }}</div>" +
@@ -35,6 +45,14 @@ class Calendar extends Widget {
   }
 
   private createElement (): HTMLDivElement {
+    this.components = {
+      btnNext: new BtnNext(),
+      btnPrevious: new BtnPrevious(),
+      list: new List(),
+      month: new Month(),
+      table: new Table()
+    };
+
     const div = document.createElement("div");
 
     div.style.display = "flex";
@@ -55,23 +73,36 @@ class Calendar extends Widget {
         break;
     }
 
-    div.append(Components.createDivTable());
-    div.append(Components.createDivList());
+    const divMonth = document.createElement("div");
+
+    divMonth.style.display = "flex";
+    divMonth.style.justifyContent = "space-between";
+
+    divMonth.append(
+      this.components.btnPrevious.element,
+      this.components.month.element,
+      this.components.btnNext.element
+    );
+
+    const divTable = document.createElement("div");
+
+    divTable.style.display = "flex";
+    divTable.style.flexDirection = "column";
+
+    divTable.append(divMonth, this.components.table.element);
+
+    div.append(divTable);
+    div.append(this.components.list.element);
 
     return div;
   }
 
   private displayMonth (): void {
-    const element = this.element.querySelector(".osmcal-calendar__month") as HTMLDivElement;
-
-    element.innerText = new Date(this.year, this.month).toLocaleDateString(this.locales, { month: "long", year: "numeric" });
+    this.components.month.element.innerText = new Date(this.year, this.month).toLocaleDateString(this.locales, { month: "long", year: "numeric" });
   }
 
   private displayDates (): void {
-    const element = this.element.querySelector(".osmcal-calendar__table") as HTMLTableElement;
-
-    element.innerHTML = "";
-    element.append(createTablesDates(this.month, this.year));
+    this.components.table.update(this.month, this.year);
   }
 
   constructor (element: HTMLElement, options?: OptionsCalendar) {
@@ -94,8 +125,7 @@ class Calendar extends Widget {
 
     this.element.append(this.createElement());
 
-    const divPrevious = this.element.querySelector(".osmcal-calendar__btn-previous") as HTMLDivElement;
-    divPrevious.addEventListener("click", () => {
+    this.components.btnPrevious.element.addEventListener("click", () => {
       this.month--;
 
       if (this.month < 0) {
@@ -106,8 +136,7 @@ class Calendar extends Widget {
       this.update();
     });
 
-    const divNext = this.element.querySelector(".osmcal-calendar__btn-next") as HTMLDivElement;
-    divNext.addEventListener("click", () => {
+    this.components.btnNext.element.addEventListener("click", () => {
       this.month++;
 
       if (this.month > 11) {
@@ -122,9 +151,7 @@ class Calendar extends Widget {
   }
 
   private update (): void {
-    const list = this.element.querySelector(".osmcal-calendar__list") as HTMLUListElement;
-
-    list.innerHTML = "";
+    this.components.list.element.innerHTML = "";
 
     this.displayMonth();
     this.displayDates();
@@ -142,8 +169,6 @@ class Calendar extends Widget {
   }
 
   private updateTableWithEvents (): void {
-    const table = this.element.querySelector(".osmcal-calendar__table") as HTMLTableElement;
-
     const group: Record<string, Event[]> = {};
 
     this.events.forEach((event: Event) => {
@@ -168,7 +193,7 @@ class Calendar extends Widget {
       const events = group[dateString];
 
       if (month === this.month && year === this.year) {
-        const td = table.querySelector(`td[data-year="${year}"][data-month="${month + 1}"][data-date="${date}"]`) as HTMLTableCellElement;
+        const td = this.components.table.element.querySelector(`td[data-year="${year}"][data-month="${month + 1}"][data-date="${date}"]`) as HTMLTableCellElement;
 
         td.classList.add("osmcal-calendar__date--has-event");
         td.title = events.length.toString();
@@ -191,9 +216,7 @@ class Calendar extends Widget {
   }
 
   private displayEventsList (events: Event[]): void {
-    const list = this.element.querySelector(".osmcal-calendar__list") as HTMLUListElement;
-
-    list.innerHTML = "";
+    this.components.list.element.innerHTML = "";
 
     events.forEach((event: Event) => {
       const li = document.createElement("li");
@@ -208,7 +231,7 @@ class Calendar extends Widget {
 
       li.append(a);
 
-      list.append(li);
+      this.components.list.element.append(li);
     });
   }
 }
