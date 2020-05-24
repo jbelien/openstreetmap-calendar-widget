@@ -158,11 +158,27 @@
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
                             data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
-                            Future events list (Custom template)
+                            Future events list (Locale: Albanian)
                         </button>
                     </h2>
                 </div>
                 <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordion-future">
+                    <div class="card-body">
+                        <div id="osmcal-locale" data-locales="sq"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="heading5">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                            data-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
+                            Future events list (Custom template)
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapse5" class="collapse" aria-labelledby="heading5" data-parent="#accordion-future">
                     <div class="card-body">
                         <div id="osmcal-template"></div>
                     </div>
@@ -176,15 +192,15 @@
         <div class="accordion" id="accordion-past">
 
             <div class="card">
-                <div class="card-header" id="heading5">
+                <div class="card-header" id="heading6">
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
-                            data-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
+                            data-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
                             Past events list (Global, Limit: 5)
                         </button>
                     </h2>
                 </div>
-                <div id="collapse5" class="collapse" aria-labelledby="heading5" data-parent="#accordion-past">
+                <div id="collapse6" class="collapse" aria-labelledby="heading6" data-parent="#accordion-past">
                     <div class="card-body">
                         <div id="osmcal-past"></div>
                     </div>
@@ -232,8 +248,12 @@
             // const widgetList3 = new OSMCal.WidgetList(document.getElementById("osmcal-limit"), { limit: 1 });
             widgetList3.display();
 
-            const widgetList4 = new OSMCal.WidgetList(document.getElementById("osmcal-template"));
-            widgetList4.setTemplate(
+            const widgetList4 = new OSMCal.WidgetList(document.getElementById("osmcal-locale"));
+            // const widgetList4 = new OSMCal.WidgetList(document.getElementById("osmcal-locale"), { locales: "sq" });
+            widgetList4.display();
+
+            const widgetList5 = new OSMCal.WidgetList(document.getElementById("osmcal-template"));
+            widgetList5.setTemplate(
                 '<div class="custom-list-entry-box">' +
                 '<div class="custom-entry-main">' +
                 '<p class="custom-entry-name">{{ name }}</p>' +
@@ -242,10 +262,10 @@
                 '<span class="custom-entry-date">{{ date.human }}</span>' +
                 '</div>'
             );
-            widgetList4.display();
-
-            const widgetList5 = new OSMCal.WidgetList(document.getElementById("osmcal-past"), { past: true, limit: 5 });
             widgetList5.display();
+
+            const widgetList6 = new OSMCal.WidgetList(document.getElementById("osmcal-past"), { past: true, limit: 5 });
+            widgetList6.display();
 
             const widgetCalendar1 = new OSMCal.WidgetCalendar(document.getElementById("osmcal-calendar"));
             widgetCalendar1.display();
