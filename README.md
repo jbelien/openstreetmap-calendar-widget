@@ -45,6 +45,28 @@ widget.display();
 
 ### Options
 
+#### Locale(s)
+
+**Using `data-locales` attribute:**
+
+```html
+<div id="osmcal" data-locales="fr"></div>
+```
+
+```js
+const widget = new OSMCal.WidgetList(document.getElementById("osmcal"));
+widget.display();
+```
+
+**Using JavaScript:**
+
+```js
+const widget = new OSMCal.WidgetList(document.getElementById("osmcal"), {
+  locales: "fr",
+});
+widget.display();
+```
+
 #### Limit
 
 **Using `data-limit` attribute:**
@@ -97,7 +119,7 @@ const widget = new OSMCal.WidgetCalendar(document.getElementById("osmcal"));
 widget.display();
 ```
 
-All parameters described for WidgetList are also available for WidgetCalendar (filter, limit, past, ...).
+All parameters described for WidgetList are also available for WidgetCalendar (filter, limit, past, locales, ...).
 
 ### Options
 
@@ -149,7 +171,7 @@ const widget = new OSMCal.WidgetMap(document.getElementById("osmcal"));
 widget.display();
 ```
 
-All parameters described for WidgetList are also available for WidgetMap (filter, limit, past, ...).
+All parameters described for WidgetList are also available for WidgetMap (filter, limit, past, locales, ...).
 
 ### Classes
 
