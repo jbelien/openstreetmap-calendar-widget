@@ -2,6 +2,16 @@
 
 Widget to embed [OpenStreetMap Calendar](https://osmcal.org/) events in your application/website.
 
+## Usage
+
+```html
+<script
+  src="https://unpkg.com/@jbelien/openstreetmap-calendar-widget@0.1.0/dist/osmcal.js"
+  integrity="sha512-viNKm38uAViyJGPbZOtcAJYMPFce23urI/6T1kVxr4DT7/NupBfHbg02s1MLH8cWbe3hcz/TSLFsgSGWCJr54A=="
+  crossorigin=""
+></script>
+```
+
 ## Events list
 
 ```js
