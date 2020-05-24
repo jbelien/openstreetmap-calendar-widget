@@ -10,6 +10,7 @@ abstract class Widget {
   private url = "https://osmcal.org/api/v1/";
 
   protected filter: Filter = {};
+  protected future = true;
   protected limit = -1;
   protected past = false;
 
@@ -29,9 +30,12 @@ abstract class Widget {
     if (typeof options !== "undefined") {
       this.filter = options.filter;
       this.limit = options.limit;
-      this.past = (options.past === true);
+
+      if (typeof options.future !== "undefined" || typeof options.past !== "undefined") {
+        this.future = (options.future === true);
+        this.past = (options.past === true);
+      }
     }
-  }
   }
 
   protected async fetch (request: string): Promise<Event[]> {
@@ -48,7 +52,9 @@ abstract class Widget {
   protected async getEvents (): Promise<Event[]> {
     let events: Event[] = [];
 
-    const events = (await response.json()) as Event[];
+    if (this.future === true) {
+      events = events.concat(await this.fetch(""));
+    }
     if (this.past === true) {
       events = events.concat(await this.fetch("past/"));
     }

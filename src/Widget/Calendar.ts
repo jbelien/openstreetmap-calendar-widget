@@ -10,6 +10,9 @@ import OptionsCalendar, { Position } from "./Options/Calendar";
 import Widget from "../Widget";
 
 class Calendar extends Widget {
+  protected future = true;
+  protected past = true;
+
   private locales: string|string[];
   private position: Position;
 
