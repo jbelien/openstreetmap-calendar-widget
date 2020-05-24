@@ -1,6 +1,5 @@
 "use strict";
 
-import Handlebars from "handlebars/dist/handlebars";
 import L from "leaflet";
 
 import Event from "../Event";
@@ -11,7 +10,7 @@ class Map extends Widget {
   private map: L.Map;
   private layer: L.FeatureGroup;
 
-  private template: string =
+  protected template: string =
     "<div class=\"osmcal-map__event__name\">{{ name }}</div>" +
     "<div class=\"osmcal-map__event__details\">{{ date.human }}{{#if location.short}} in {{ location.short }}{{/if}}</div>";
 
@@ -23,12 +22,6 @@ class Map extends Widget {
     this.map = new L.Map(this.element);
     this.addBaselayer();
     this.addLayer();
-  }
-
-  public setTemplate (template: string): this {
-    this.template = template;
-
-    return this;
   }
 
   public getMap (): L.Map {
@@ -60,12 +53,6 @@ class Map extends Widget {
     this.layer = new L.FeatureGroup();
 
     this.map.addLayer(this.layer);
-  }
-
-  private render (event: Event): string {
-    const template = Handlebars.compile(this.template);
-
-    return template(event);
   }
 
   private addMarker (event: Event): void {

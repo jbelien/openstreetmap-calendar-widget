@@ -1,5 +1,7 @@
 "use strict";
 
+import Handlebars from "handlebars/dist/handlebars";
+
 import Event from "./Event";
 import Filter from "./Filter";
 import Options from "./Options";
@@ -12,6 +14,7 @@ abstract class Widget {
   protected past = false;
 
   protected element: HTMLElement;
+  protected template: string;
 
   constructor (element: HTMLElement, options?: Options) {
     this.element = element;
@@ -45,6 +48,18 @@ abstract class Widget {
     }
 
     return events;
+  }
+
+  public setTemplate (template: string): this {
+    this.template = template;
+
+    return this;
+  }
+
+  protected render (event: Event): string {
+    const template = Handlebars.compile(this.template);
+
+    return template(event);
   }
 
   public abstract async display(): Promise<Event[]>;

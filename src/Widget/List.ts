@@ -1,26 +1,12 @@
 "use strict";
 
-import Handlebars from "handlebars/dist/handlebars";
-
 import Event from "../Event";
 import Widget from "../Widget";
 
 class List extends Widget {
-  private template: string =
+  protected template: string =
     "<div class=\"osmcal-list__event__name\">{{ name }}</div>" +
     "<div class=\"osmcal-list__event__details\">{{ date.human }}{{#if location.short}} in {{ location.short }}{{/if}}</div>";
-
-  public setTemplate (template: string): this {
-    this.template = template;
-
-    return this;
-  }
-
-  private render (event: Event): string {
-    const template = Handlebars.compile(this.template);
-
-    return template(event);
-  }
 
   public async display (): Promise<Event[]> {
     const events = await this.fetch();

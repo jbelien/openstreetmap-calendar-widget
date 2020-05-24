@@ -1,7 +1,5 @@
 "use strict";
 
-import Handlebars from "handlebars/dist/handlebars";
-
 import BtnNext from "./Calendar/components/BtnNext";
 import BtnPrevious from "./Calendar/components/BtnPrevious";
 import List from "./Calendar/components/List";
@@ -28,21 +26,9 @@ class Calendar extends Widget {
     table: Table;
   };
 
-  private template: string =
+  protected template: string =
     "<div class=\"osmcal-calendar__event__name\">{{ name }}</div>" +
     "<div class=\"osmcal-calendar__event__details\">{{ date.human }}{{#if location.short}} in {{ location.short }}{{/if}}</div>";
-
-  public setTemplate (template: string): this {
-    this.template = template;
-
-    return this;
-  }
-
-  private render (event: Event): string {
-    const template = Handlebars.compile(this.template);
-
-    return template(event);
-  }
 
   private createElement (): HTMLDivElement {
     this.components = {
