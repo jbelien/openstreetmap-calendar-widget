@@ -145,7 +145,7 @@ class Calendar extends Widget {
   }
 
   public async display (): Promise<Event[]> {
-    this.events = await this.fetch();
+    this.events = await this.getEvents();
 
     if (this.events.length > 0) {
       this.updateTableWithEvents();

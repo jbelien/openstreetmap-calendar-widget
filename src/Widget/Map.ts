@@ -81,7 +81,7 @@ class Map extends Widget {
   }
 
   public async display (): Promise<Event[]> {
-    const events = await this.fetch();
+    const events = await this.getEvents();
 
     if (events.length > 0) {
       events.forEach((event: Event) => {

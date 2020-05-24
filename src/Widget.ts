@@ -32,16 +32,26 @@ abstract class Widget {
       this.past = (options.past === true);
     }
   }
+  }
 
-  protected async fetch (): Promise<Event[]> {
-    let url = `${this.url}events/` + (this.past ? "past/" : "");
+  protected async fetch (request: string): Promise<Event[]> {
+    let url = `${this.url}events/${request}`;
 
     if (typeof this.filter !== "undefined") {
       url += `?${new URLSearchParams(Object.entries(this.filter)).toString()}`;
     }
 
     const response = await fetch(url);
+    return (await response.json());
+  }
+
+  protected async getEvents (): Promise<Event[]> {
+    let events: Event[] = [];
+
     const events = (await response.json()) as Event[];
+    if (this.past === true) {
+      events = events.concat(await this.fetch("past/"));
+    }
 
     if (this.limit > 0) {
       return events.slice(0, this.limit);

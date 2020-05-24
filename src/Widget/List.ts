@@ -9,7 +9,7 @@ class List extends Widget {
     "<div class=\"osmcal-list__event__details\">{{ date.human }}{{#if location.short}} in {{ location.short }}{{/if}}</div>";
 
   public async display (): Promise<Event[]> {
-    const events = await this.fetch();
+    const events = await this.getEvents();
 
     if (events.length > 0) {
       const ul = document.createElement("ul");
