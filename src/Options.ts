@@ -6,6 +6,7 @@ interface Options {
   filter?: Filter;
   future?: boolean;
   limit?: number;
+  locales?: string|string[];
   past?: boolean;
 }
 

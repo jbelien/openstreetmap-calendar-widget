@@ -13,7 +13,6 @@ class Calendar extends Widget {
   protected future = true;
   protected past = true;
 
-  private locales: string|string[];
   private position: Position;
 
   private year: number;
@@ -97,15 +96,11 @@ class Calendar extends Widget {
   constructor (element: HTMLElement, options?: OptionsCalendar) {
     super(element, options);
 
-    if (typeof this.element.dataset.locales !== "undefined") {
-      this.locales = this.element.dataset.locales;
-    }
     if (typeof this.element.dataset.position !== "undefined") {
       this.position = this.element.dataset.position as Position;
     }
 
     if (typeof options !== "undefined") {
-      this.locales = options.locales;
       this.position = options.position;
     }
 

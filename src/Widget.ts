@@ -12,6 +12,7 @@ abstract class Widget {
   protected filter: Filter = {};
   protected future = true;
   protected limit = -1;
+  protected locales: string|string[];
   protected past = false;
 
   protected element: HTMLElement;
@@ -26,10 +27,17 @@ abstract class Widget {
     if (typeof this.element.dataset.limit !== "undefined") {
       this.limit = parseInt(this.element.dataset.limit);
     }
+    if (typeof this.element.dataset.locale !== "undefined") {
+      this.locales = this.element.dataset.locale;
+    }
+    if (typeof this.element.dataset.locales !== "undefined") {
+      this.locales = this.element.dataset.locales.split(",");
+    }
 
     if (typeof options !== "undefined") {
       this.filter = options.filter;
       this.limit = options.limit;
+      this.locales = options.locales;
 
       if (typeof options.future !== "undefined" || typeof options.past !== "undefined") {
         this.future = (options.future === true);
@@ -45,7 +53,14 @@ abstract class Widget {
       url += `?${new URLSearchParams(Object.entries(this.filter)).toString()}`;
     }
 
-    const response = await fetch(url);
+    const headers = new Headers();
+    if (typeof this.locales !== "undefined") {
+      headers.append("Accept-Language", Array.isArray(this.locales) ? this.locales.join(",") : this.locales);
+    }
+
+    const response = await fetch(url, {
+      headers
+    });
     return (await response.json());
   }
 
