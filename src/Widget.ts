@@ -6,6 +6,8 @@ import Event from "./Event";
 import Filter from "./Filter";
 import Options from "./Options";
 
+import { version } from "../package.json";
+
 abstract class Widget {
   private url = "https://osmcal.org/api/v1/";
 
@@ -54,6 +56,7 @@ abstract class Widget {
     }
 
     const headers = new Headers();
+    headers.append("Client-App", `osmcal-widget/${version}`);
     if (typeof this.locales !== "undefined") {
       headers.append("Accept-Language", Array.isArray(this.locales) ? this.locales.join(",") : this.locales);
     }
