@@ -4,7 +4,7 @@
   "version": "0.2.0",
   "scripts": {
     "serve:demo": "parcel demo.html --out-dir demo --global OSMCal",
-    "build:demo": "parcel build demo.html --out-dir demo --global OSMCal",
+    "build:demo": "parcel build demo.html --out-dir docs --global OSMCal --out-file index.html --public-url .",
     "build": "parcel build src/index.ts --out-file osmcal.js --global OSMCal",
     "test": "eslint src/ --ext .ts",
     "fix": "eslint src/ --ext .ts --fix"
