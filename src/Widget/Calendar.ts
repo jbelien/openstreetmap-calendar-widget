@@ -117,6 +117,14 @@ class Calendar extends Widget {
         this.year--;
       }
 
+      // const minimum = this.events.reduce((accumulator, currentValue) => {
+      //   if (currentValue.date.start < accumulator.date.start) {
+      //     return currentValue;
+      //   }
+
+      //   return accumulator;
+      // }, this.events[0]);
+
       this.update();
     });
 
