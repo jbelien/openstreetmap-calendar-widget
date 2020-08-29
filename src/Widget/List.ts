@@ -17,7 +17,7 @@ class List extends Widget {
     if (events.length === 0) {
       const lang = Array.isArray(this.locales) ? this.locales[0] : (typeof this.locales !== "undefined" ? this.locales : "en");
 
-      this.element.innerText = getMessages(lang).noEvent;
+      this.element.innerText = getMessages(lang).noFutureEvent;
     } else {
       const ul = document.createElement("ul");
 

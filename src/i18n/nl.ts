@@ -1,5 +1,5 @@
 "use strict";
 
 export const messages = {
-  noEvent: "Geen evenement."
+  noFutureEvent: "Er is niets gepland op dit moment."
 };
