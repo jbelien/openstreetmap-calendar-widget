@@ -5,6 +5,7 @@ import Handlebars from "handlebars/dist/handlebars";
 import Event from "./Event";
 import Filter from "./Filter";
 import Options from "./Options";
+import { messages } from "./i18n";
 
 import { version } from "../package.json";
 
@@ -83,6 +84,16 @@ abstract class Widget {
     }
 
     return events;
+  }
+
+  protected getMessages (): Record<string, string> {
+    const lang = Array.isArray(this.locales)
+      ? this.locales[0]
+      : typeof this.locales !== "undefined"
+        ? this.locales
+        : "en";
+
+    return typeof messages[lang] !== "undefined" ? messages[lang] : messages.en;
   }
 
   public setTemplate (template: string): this {

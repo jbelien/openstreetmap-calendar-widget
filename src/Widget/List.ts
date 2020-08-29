@@ -2,7 +2,6 @@
 
 import Event from "../Event";
 import Widget from "../Widget";
-import { getMessages } from "../i18n";
 
 class List extends Widget {
   protected template: string =
@@ -15,9 +14,7 @@ class List extends Widget {
     this.element.innerHTML = "";
 
     if (events.length === 0) {
-      const lang = Array.isArray(this.locales) ? this.locales[0] : (typeof this.locales !== "undefined" ? this.locales : "en");
-
-      this.element.innerText = getMessages(lang).noFutureEvent;
+      this.element.innerText = this.getMessages().noFutureEvent;
     } else {
       const ul = document.createElement("ul");
 
