@@ -11,6 +11,8 @@ class List extends Widget {
   public async display (): Promise<Event[]> {
     const events = await this.getEvents();
 
+    this.element.innerHTML = "";
+
     if (events.length > 0) {
       const ul = document.createElement("ul");
 
