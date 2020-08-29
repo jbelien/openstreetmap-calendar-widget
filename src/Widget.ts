@@ -62,6 +62,7 @@ abstract class Widget {
     }
 
     const response = await fetch(url, {
+      cache: "no-cache",
       headers
     });
     return (await response.json());
