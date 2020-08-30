@@ -7,7 +7,8 @@
     "build:demo": "parcel build demo.html --out-dir docs --global OSMCal --out-file index.html --public-url .",
     "build": "parcel build src/index.ts --out-file osmcal.js --global OSMCal",
     "test": "eslint src/ --ext .ts",
-    "fix": "eslint src/ --ext .ts --fix"
+    "fix": "eslint src/ --ext .ts --fix",
+    "integrity": "cat dist/osmcal.js | openssl dgst -sha512 -binary | openssl base64 -A"
   },
   "license": "Apache-2.0",
   "repository": {
