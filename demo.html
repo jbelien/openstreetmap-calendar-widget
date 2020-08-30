@@ -126,13 +126,13 @@
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
                             data-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
-                            Future events list (In: Belgium)
+                            Future events list (Hide cancelled events)
                         </button>
                     </h2>
                 </div>
                 <div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordion-future">
                     <div class="card-body">
-                        <div id="osmcal-in" data-in="Belgium">Loading...</div>
+                        <div id="osmcal-cancelled">Loading...</div>
                     </div>
                 </div>
             </div>
@@ -142,13 +142,13 @@
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
                             data-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
-                            Future events list (Limit: 1)
+                            Future events list (In: Belgium)
                         </button>
                     </h2>
                 </div>
                 <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordion-future">
                     <div class="card-body">
-                        <div id="osmcal-limit" data-limit="1">Loading...</div>
+                        <div id="osmcal-in" data-in="Belgium">Loading...</div>
                     </div>
                 </div>
             </div>
@@ -158,13 +158,13 @@
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
                             data-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
-                            Future events list (Locale: Albanian)
+                            Future events list (Limit: 1)
                         </button>
                     </h2>
                 </div>
                 <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordion-future">
                     <div class="card-body">
-                        <div id="osmcal-locale" data-locales="sq">Loading...</div>
+                        <div id="osmcal-limit" data-limit="1">Loading...</div>
                     </div>
                 </div>
             </div>
@@ -174,11 +174,27 @@
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
                             data-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
-                            Future events list (Custom template)
+                            Future events list (Locale: Albanian)
                         </button>
                     </h2>
                 </div>
                 <div id="collapse5" class="collapse" aria-labelledby="heading5" data-parent="#accordion-future">
+                    <div class="card-body">
+                        <div id="osmcal-locale" data-locales="sq">Loading...</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" id="heading6">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                            data-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
+                            Future events list (Custom template)
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapse6" class="collapse" aria-labelledby="heading6" data-parent="#accordion-future">
                     <div class="card-body">
                         <div id="osmcal-template">Loading...</div>
                     </div>
@@ -192,15 +208,15 @@
         <div class="accordion" id="accordion-past">
 
             <div class="card">
-                <div class="card-header" id="heading6">
+                <div class="card-header" id="heading7">
                     <h2 class="mb-0">
                         <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
-                            data-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
+                            data-target="#collapse7" aria-expanded="true" aria-controls="collapse7">
                             Past events list (Global, Limit: 5)
                         </button>
                     </h2>
                 </div>
-                <div id="collapse6" class="collapse" aria-labelledby="heading6" data-parent="#accordion-past">
+                <div id="collapse7" class="collapse" aria-labelledby="heading7" data-parent="#accordion-past">
                     <div class="card-body">
                         <div id="osmcal-past">Loading...</div>
                     </div>
@@ -240,20 +256,23 @@
             const widgetList1 = new OSMCal.WidgetList(document.getElementById("osmcal"));
             widgetList1.display();
 
-            const widgetList2 = new OSMCal.WidgetList(document.getElementById("osmcal-in"));
-            // const widgetList2 = new OSMCal.WidgetList(document.getElementById("osmcal-in", { filter: { in: "Belgium" } }));
+            const widgetList2 = new OSMCal.WidgetList(document.getElementById("osmcal-cancelled"), { hideCancelled: true });
             widgetList2.display();
 
-            const widgetList3 = new OSMCal.WidgetList(document.getElementById("osmcal-limit"));
-            // const widgetList3 = new OSMCal.WidgetList(document.getElementById("osmcal-limit"), { limit: 1 });
+            const widgetList3 = new OSMCal.WidgetList(document.getElementById("osmcal-in"));
+            // const widgetList3 = new OSMCal.WidgetList(document.getElementById("osmcal-in", { filter: { in: "Belgium" } }));
             widgetList3.display();
 
-            const widgetList4 = new OSMCal.WidgetList(document.getElementById("osmcal-locale"));
-            // const widgetList4 = new OSMCal.WidgetList(document.getElementById("osmcal-locale"), { locales: "sq" });
+            const widgetList4 = new OSMCal.WidgetList(document.getElementById("osmcal-limit"));
+            // const widgetList4 = new OSMCal.WidgetList(document.getElementById("osmcal-limit"), { limit: 1 });
             widgetList4.display();
 
-            const widgetList5 = new OSMCal.WidgetList(document.getElementById("osmcal-template"));
-            widgetList5.setTemplate(
+            const widgetList5 = new OSMCal.WidgetList(document.getElementById("osmcal-locale"));
+            // const widgetList5 = new OSMCal.WidgetList(document.getElementById("osmcal-locale"), { locales: "sq" });
+            widgetList5.display();
+
+            const widgetList6 = new OSMCal.WidgetList(document.getElementById("osmcal-template"));
+            widgetList6.setTemplate(
                 '<div class="custom-list-entry-box">' +
                 '<div class="custom-entry-main">' +
                 '<p class="custom-entry-name">{{ name }}</p>' +
@@ -262,10 +281,10 @@
                 '<span class="custom-entry-date">{{ date.human }}</span>' +
                 '</div>'
             );
-            widgetList5.display();
-
-            const widgetList6 = new OSMCal.WidgetList(document.getElementById("osmcal-past"), { past: true, limit: 5 });
             widgetList6.display();
+
+            const widgetList7 = new OSMCal.WidgetList(document.getElementById("osmcal-past"), { past: true, limit: 5 });
+            widgetList7.display();
 
             const widgetCalendar1 = new OSMCal.WidgetCalendar(document.getElementById("osmcal-calendar"));
             widgetCalendar1.display();
