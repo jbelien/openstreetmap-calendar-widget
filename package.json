@@ -1,6 +1,12 @@
 {
   "name": "@jbelien/openstreetmap-calendar-widget",
   "description": "Widget to embed OpenStreetMap Calendar (https://osmcal.org/) events in your application/website.",
+  "keywords": [
+    "openstreetmap",
+    "calendar",
+    "osmcal",
+    "widget"
+  ],
   "version": "0.3.0",
   "scripts": {
     "serve:demo": "parcel demo.html --out-dir demo --global OSMCal",
