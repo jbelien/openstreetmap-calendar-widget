@@ -14,6 +14,7 @@ abstract class Widget {
 
   protected filter: Filter = {};
   protected future = true;
+  protected hideCancelled = false;
   protected limit = -1;
   protected locales: string|string[];
   protected past = false;
@@ -39,6 +40,7 @@ abstract class Widget {
 
     if (typeof options !== "undefined") {
       this.filter = options.filter;
+      this.hideCancelled = options.hideCancelled;
       this.limit = options.limit;
       this.locales = options.locales;
 
@@ -77,6 +79,10 @@ abstract class Widget {
     }
     if (this.past === true) {
       events = events.concat(await this.fetch("past/"));
+    }
+
+    if (this.hideCancelled === true) {
+      events = events.filter((event: Event) => typeof event.cancelled === "undefined" || event.cancelled === false);
     }
 
     if (this.limit > 0) {
