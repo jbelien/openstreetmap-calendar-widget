@@ -7,6 +7,7 @@ interface Event {
 
     date: {
         human: string;
+        // eslint-disable-next-line camelcase
         whole_day: boolean;
         start: string;
         end?: string;
