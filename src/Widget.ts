@@ -10,7 +10,7 @@ import { messages } from "./i18n";
 import { version } from "../package.json";
 
 abstract class Widget {
-  private url = "https://osmcal.org/api/v1/";
+  private url = "https://osmcal.org/api/v2/";
 
   protected filter: Filter = {};
   protected future = true;
