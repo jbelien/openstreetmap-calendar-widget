@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@types/leaflet": "^1.5.17",
+    "@types/leaflet.markercluster": "^1.4.3",
     "@typescript-eslint/eslint-plugin": "^4.1.0",
     "@typescript-eslint/parser": "^4.1.0",
     "eslint": "^7.8.1",
@@ -39,7 +40,8 @@
   },
   "dependencies": {
     "handlebars": "^4.7.6",
-    "leaflet": "^1.7.1"
+    "leaflet": "^1.7.1",
+    "leaflet.markercluster": "^1.4.1"
   },
   "homepage": "https://osmcal-widget.netlify.app/demo.html",
   "main": "src/index.js"
