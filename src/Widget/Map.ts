@@ -9,7 +9,6 @@ import Widget from "../Widget";
 
 class Map extends Widget {
   private map: L.Map;
-  private layer: L.FeatureGroup;
   private markerCluster: L.MarkerClusterGroup;
 
   protected template: string =
@@ -64,8 +63,6 @@ class Map extends Widget {
   }
 
   private addLayer (): void {
-    this.layer = new L.FeatureGroup();
-
     this.markerCluster = L.markerClusterGroup();
 
     this.map.addLayer(this.markerCluster);
