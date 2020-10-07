@@ -43,6 +43,6 @@
     "leaflet": "^1.7.1",
     "leaflet.markercluster": "^1.4.1"
   },
-  "homepage": "https://osmcal-widget.netlify.app/demo.html",
+  "homepage": "https://jbelien.github.io/openstreetmap-calendar-widget/",
   "main": "src/index.js"
 }
