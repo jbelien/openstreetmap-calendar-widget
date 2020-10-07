@@ -6,7 +6,7 @@ Widget to embed [OpenStreetMap Calendar](https://osmcal.org/) events in your app
 
 ```html
 <script
-  src="https://unpkg.com/@jbelien/openstreetmap-calendar-widget@0.4.0/dist/osmcal.js"
+  src="https://unpkg.com/@jbelien/openstreetmap-calendar-widget@0.4.1/dist/osmcal.js"
   integrity="sha512-5BkMcVKZ6nX+ddTRrnbd3cwVwp5bNvc/7aikO4iEmqydJcoyf8sUA+qx7Y9vb/nnoNXGOvPTcfUzriOA559W/Q=="
   crossorigin=""
 ></script>
