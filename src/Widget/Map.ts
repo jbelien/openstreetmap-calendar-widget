@@ -63,7 +63,9 @@ class Map extends Widget {
   }
 
   private addLayer (): void {
-    this.markerCluster = L.markerClusterGroup();
+    this.markerCluster = L.markerClusterGroup({
+      showCoverageOnHover: false
+    });
 
     this.map.addLayer(this.markerCluster);
   }
