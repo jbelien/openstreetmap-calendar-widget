@@ -1,6 +1,7 @@
 "use strict";
 
 import L from "leaflet";
+import "leaflet.markercluster";
 
 import Event from "../Event";
 import Options from "../Options";
@@ -8,7 +9,7 @@ import Widget from "../Widget";
 
 class Map extends Widget {
   private map: L.Map;
-  private layer: L.FeatureGroup;
+  private markerCluster: L.MarkerClusterGroup;
 
   protected template: string =
     "<div class=\"osmcal-map__event__name\">{{ name }}</div>" +
@@ -18,6 +19,7 @@ class Map extends Widget {
     super(element, options);
 
     this.addLink();
+    this.addLinkCluster();
 
     this.map = new L.Map(this.element);
     this.addBaselayer();
@@ -32,8 +34,19 @@ class Map extends Widget {
     const link = document.createElement("link");
 
     link.rel = "stylesheet";
-    link.href = "https://unpkg.com/leaflet@1.6.0/dist/leaflet.css";
-    link.integrity = "sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==";
+    link.href = "https://unpkg.com/leaflet@1.7.1/dist/leaflet.css";
+    link.integrity = "sha384-VzLXTJGPSyTLX6d96AxgkKvE/LRb7ECGyTxuwtpjHnVWVZs2gp5RDjeM/tgBnVdM";
+    link.crossOrigin = "";
+
+    document.head.append(link);
+  }
+
+  private addLinkCluster (): void {
+    const link = document.createElement("link");
+
+    link.rel = "stylesheet";
+    link.href = "https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css";
+    link.integrity = "sha384-5kMSQJ6S4Qj5i09mtMNrWpSi8iXw230pKU76xTmrpezGnNJQzj0NzXjQLLg+jE7k";
     link.crossOrigin = "";
 
     document.head.append(link);
@@ -50,9 +63,9 @@ class Map extends Widget {
   }
 
   private addLayer (): void {
-    this.layer = new L.FeatureGroup();
+    this.markerCluster = L.markerClusterGroup();
 
-    this.map.addLayer(this.layer);
+    this.map.addLayer(this.markerCluster);
   }
 
   private addMarker (event: Event): void {
@@ -81,7 +94,7 @@ class Map extends Widget {
 
     marker.bindPopup(divElement);
 
-    this.layer.addLayer(marker);
+    this.markerCluster.addLayer(marker);
   }
 
   public async display (): Promise<Event[]> {
@@ -94,7 +107,7 @@ class Map extends Widget {
         }
       });
 
-      this.map.fitBounds(this.layer.getBounds(), { padding: [15, 15], maxZoom: 18 });
+      this.map.fitBounds(this.markerCluster.getBounds(), { padding: [15, 15], maxZoom: 18 });
     }
 
     return events;
