@@ -1,5 +1,8 @@
 # OpenStreetMap Calendar Widget
 
+![npm](https://img.shields.io/npm/v/@jbelien/openstreetmap-calendar-widget)
+![GitHub](https://img.shields.io/github/license/jbelien/openstreetmap-calendar-widget)
+
 Widget to embed [OpenStreetMap Calendar](https://osmcal.org/) events in your application/website.
 
 ## Usage
@@ -10,6 +13,12 @@ Widget to embed [OpenStreetMap Calendar](https://osmcal.org/) events in your app
   integrity="sha512-5BkMcVKZ6nX+ddTRrnbd3cwVwp5bNvc/7aikO4iEmqydJcoyf8sUA+qx7Y9vb/nnoNXGOvPTcfUzriOA559W/Q=="
   crossorigin=""
 ></script>
+```
+
+OR
+
+```shell
+npm install @jbelien/openstreetmap-calendar-widget
 ```
 
 ## Events list
