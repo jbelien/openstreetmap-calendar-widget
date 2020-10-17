@@ -1,7 +1,7 @@
 # OpenStreetMap Calendar Widget
 
-![npm](https://img.shields.io/npm/v/@jbelien/openstreetmap-calendar-widget)
-![GitHub](https://img.shields.io/github/license/jbelien/openstreetmap-calendar-widget)
+[![npm](https://img.shields.io/npm/v/@jbelien/openstreetmap-calendar-widget)](https://www.npmjs.com/package/@jbelien/openstreetmap-calendar-widget)
+[![GitHub](https://img.shields.io/github/license/jbelien/openstreetmap-calendar-widget)](https://github.com/jbelien/openstreetmap-calendar-widget/blob/master/LICENSE)
 
 Widget to embed [OpenStreetMap Calendar](https://osmcal.org/) events in your application/website.
 
