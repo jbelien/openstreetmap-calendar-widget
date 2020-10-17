@@ -5,6 +5,10 @@
 
 Widget to embed [OpenStreetMap Calendar](https://osmcal.org/) events in your application/website.
 
+Demo: <https://jbelien.github.io/openstreetmap-calendar-widget/>
+
+---
+
 ## Usage
 
 ```html
