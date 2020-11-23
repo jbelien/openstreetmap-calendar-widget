@@ -49,15 +49,15 @@ class Calendar extends Widget {
       case "bottom":
         div.style.flexDirection = "column";
         break;
+      case "top":
+        div.style.flexDirection = "column-reverse";
+        break;
       case "left":
         div.style.flexDirection = "row-reverse";
         break;
       case "right":
       default:
         div.style.flexDirection = "row";
-        break;
-      case "top":
-        div.style.flexDirection = "column-reverse";
         break;
     }
 
